@@ -1,0 +1,45 @@
+schema_version: "1.0"
+contract_type: task
+task_id: "TASK-YYYYMMDD-001"
+title: "Short task title"
+status: ready # draft | ready | in_progress | blocked | review | completed | cancelled
+owner_agent: technical
+issued_by: manager
+created_at: "YYYY-MM-DDTHH:MM:SSZ"
+
+objective: "One clear, verifiable objective."
+scope:
+  included:
+    - "Explicit in-scope item"
+  excluded:
+    - "Explicit out-of-scope item"
+
+acceptance_criteria:
+  - id: AC-001
+    description: "Observable completion condition"
+    verification: "Command, test, or inspection evidence"
+
+dependencies: []
+context:
+  graph_nodes: []
+  information_refs: []
+  files_to_inspect: []
+  collection_batch_ref: null
+
+constraints:
+  language: "Persian prose; technical identifiers remain English"
+  terminal_steps: "One clear objective per step"
+  workflow: "AUDIT -> APPLY -> VERIFY"
+  human_runs_commands: true
+
+risk_level: low # low | medium | high
+approval_required_for:
+  - "Architecture changes"
+  - "Out-of-scope changes"
+  - "High-risk or irreversible actions"
+
+expected_outputs:
+  - "Execution report"
+  - "Changed files or copy-ready commands"
+
+notes: []

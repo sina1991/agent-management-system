@@ -1,0 +1,40 @@
+schema_version: "1.0"
+graph:
+  nodes:
+    - id: agent-alpha
+      type: agent
+      path: agents/alpha/PROFILE.md
+    - id: agent-manager
+      type: agent
+      path: agents/manager/PROFILE.md
+    - id: technical-agent
+      type: agent
+      path: agents/technical/PROFILE.md
+    - id: task-contract
+      type: contract
+      path: contracts/task.yaml
+    - id: execution-report-contract
+      type: contract
+      path: contracts/execution-report.yaml
+    - id: handoff-contract
+      type: contract
+      path: contracts/handoff.yaml
+    - id: project-information-index
+      type: state
+      path: project_state/information-index.yaml
+  edges:
+    - from: agent-alpha
+      to: agent-manager
+      relationship: issues_approved_mission
+    - from: agent-manager
+      to: technical-agent
+      relationship: assigns_task
+    - from: technical-agent
+      to: execution-report-contract
+      relationship: reports_using
+    - from: technical-agent
+      to: handoff-contract
+      relationship: hands_off_using
+    - from: agent-manager
+      to: project-information-index
+      relationship: maintains

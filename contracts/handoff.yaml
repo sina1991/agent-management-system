@@ -1,0 +1,26 @@
+schema_version: "1.0"
+contract_type: handoff
+handoff_id: "HANDOFF-YYYYMMDD-001"
+task_id: "TASK-YYYYMMDD-001"
+from_agent: "technical-01"
+to_agent: "replacement-agent"
+created_at: "YYYY-MM-DDTHH:MM:SSZ"
+
+reason: "Why the current agent cannot or should not continue."
+task_objective: "Original objective."
+current_status: blocked # in_progress | blocked | partial
+last_verified_checkpoint: "Last state supported by evidence."
+
+completed_work: []
+changed_files: []
+commands_run_and_evidence: []
+decisions_and_assumptions:
+  verified_decisions: []
+  assumptions_to_recheck: []
+remaining_work: []
+blockers: []
+context_refs: []
+do_not_repeat:
+  - "Information already collected and still valid"
+next_recommended_action: "Smallest useful next action"
+manager_review_required: true

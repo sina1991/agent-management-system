@@ -1,0 +1,25 @@
+schema_version: "1.0"
+contract_type: execution_report
+report_id: "REPORT-YYYYMMDD-001"
+task_id: "TASK-YYYYMMDD-001"
+agent_id: "technical-01"
+status: completed # completed | partial | blocked | failed
+created_at: "YYYY-MM-DDTHH:MM:SSZ"
+
+summary: "Concise outcome."
+completed_items: []
+changed_files: []
+commands_proposed: []
+commands_confirmed_run: []
+verification:
+  - criterion_id: AC-001
+    result: passed # passed | failed | not_run | inconclusive
+    evidence: "Actual output, test result, or file inspection"
+decisions:
+  - decision: "Decision made within scope"
+    rationale: "Short reason"
+    requires_manager_review: false
+unresolved_items: []
+risks: []
+recommended_next_action: "Next step or none"
+handoff_required: false

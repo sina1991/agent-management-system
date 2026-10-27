@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Handoff Contract",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "contract_type",
+    "handoff_id",
+    "task_id",
+    "from_agent",
+    "reason",
+    "task_objective",
+    "current_status",
+    "last_verified_checkpoint",
+    "next_recommended_action"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "contract_type": {
+      "const": "handoff"
+    },
+    "handoff_id": {
+      "type": "string"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "from_agent": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "task_objective": {
+      "type": "string"
+    },
+    "current_status": {
+      "enum": [
+        "in_progress",
+        "blocked",
+        "partial"
+      ]
+    },
+    "last_verified_checkpoint": {
+      "type": "string"
+    },
+    "next_recommended_action": {
+      "type": "string"
+    },
+    "manager_review_required": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": true
+}

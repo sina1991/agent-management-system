@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Task Contract",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "contract_type",
+    "task_id",
+    "title",
+    "status",
+    "owner_agent",
+    "issued_by",
+    "objective",
+    "acceptance_criteria"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "contract_type": {
+      "const": "task"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "ready",
+        "in_progress",
+        "blocked",
+        "review",
+        "completed",
+        "cancelled"
+      ]
+    },
+    "owner_agent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "issued_by": {
+      "type": "string",
+      "minLength": 1
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "description"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "verification": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "scope": {
+      "type": "object"
+    },
+    "context": {
+      "type": "object"
+    },
+    "constraints": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}
