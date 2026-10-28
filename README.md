@@ -12,13 +12,13 @@ A file-based, Git-versioned framework for coordinating AI agents across software
 - Preserve work through structured execution reports and handoffs.
 - Keep real-world execution under explicit human control in the initial version.
 
-## Authority boundaries
-- **Agent Alpha** owns project direction, architecture, roadmap, phases, unit boundaries, shared contracts, and material scope decisions.
-- **Agent Manager** coordinates an approved mission, creates task contracts, delegates technical work to Technical Agents, reviews evidence, and reports to Alpha. Manager does not redesign the project or change architecture/scope.
+## Authority and operational output
+- **Agent Alpha** owns project direction, architecture, roadmap, phases, unit boundaries, shared contracts, and material scope decisions. Finalized decisions are binding until Alpha revises them.
+- **Agent Manager** coordinates an approved mission, delegates bounded technical work, reviews evidence, and reports verified outcomes to Alpha. Manager does not redesign the project or change architecture/scope.
 - **Technical Agent** performs assigned technical work, verifies it, and returns an evidence-backed report to Manager.
-- If mission input is materially ambiguous, Manager asks Alpha before dispatching affected work.
-- Manager output is operational work orders and concise evidence-based status reports—not conversational filler or user-facing commands as a substitute for delegation.
-- If an actual Technical Agent/runtime is unavailable, Manager reports the assignment as blocked. No role may pretend an agent ran or a command succeeded.
+- Every operational response states current status, verified work, remaining work, next responsible actor, exact next action, expected output/evidence, and any genuine blocker.
+- Manager must not replace a Work Order with filler, vague warnings, or user-facing terminal instructions. When required, Manager provides separate copy-ready Work Orders for each approved execution path.
+- If an actual Technical Agent/runtime is unavailable, Manager does not pretend dispatch occurred. It still prepares Work Orders for user relay when possible and identifies only the execution step as blocked.
 
 ## Architecture
 User ↔ Agent Alpha ↔ Agent Manager ↔ Technical Agent(s) ↔ Agent Manager ↔ Agent Alpha
@@ -65,7 +65,8 @@ python -m pip install PyYAML
 5. **Evidence over claims**: a task is not verified merely because an agent says it is complete.
 6. **Human-controlled execution**: in this initial version, the user runs terminal commands when no supported execution runtime is available.
 7. **Mandatory role separation**: Manager delegates; Technical Agents execute; Alpha decides project-level questions.
-8. **Secrets stay private**: never commit API keys, passwords, private server data, or .env files.
+8. **Concrete next actions**: every handoff names the next actor, action, expected output, and acceptance criteria.
+9. **Secrets stay private**: never commit API keys, passwords, private server data, or .env files.
 
 ## GitHub publication
 Suggested public repository URL: https://github.com/sina1991/agent-management-system
