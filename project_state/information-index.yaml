@@ -16,7 +16,7 @@ records:
         - "agent-alpha"
         - "agent-manager"
         - "technical-agent"
-    source_revision: "feature/chat-bootstrap-and-role-protocol"
+    source_revision: "6ed4af24f7fe941e684e0427ebf068a1e7461d51"
     observed_at: "2026-10-28T16:00:00Z"
     validity: current
     reuse_guidance: "Use this protocol when activating the three independent ChatGPT conversations. Recheck if role profiles or bootstrap documentation change."
