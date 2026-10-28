@@ -31,15 +31,22 @@ constraints:
   terminal_steps: "One clear objective per step"
   workflow: "AUDIT -> APPLY -> VERIFY"
   human_runs_commands: true
+  authority: "Execute only approved scope; do not change architecture, roadmap, ownership boundaries, shared contracts, or material scope."
+  ambiguity: "Stop and ask Agent Manager; Manager escalates material ambiguity to Agent Alpha before dispatch or decision."
+  evidence: "Separate proposed commands from commands actually run; never claim unobserved execution or unverified success."
+  delegation: "Technical work is performed by the assigned Technical Agent; Manager must not substitute user-facing instructions for delegation."
 
 risk_level: low # low | medium | high
 approval_required_for:
   - "Architecture changes"
   - "Out-of-scope changes"
+  - "Cross-unit or shared-contract changes"
   - "High-risk or irreversible actions"
 
 expected_outputs:
-  - "Execution report"
-  - "Changed files or copy-ready commands"
+  - "Execution report with evidence for every acceptance criterion"
+  - "Changed files and diff/commit references, or clear statement that no changes were made"
+  - "Commands actually run separated from commands merely proposed"
+  - "Unresolved items, risks, and next action"
 
 notes: []
