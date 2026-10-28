@@ -6,7 +6,7 @@ agent_id: "technical-01"
 status: completed # completed | partial | blocked | failed
 created_at: "YYYY-MM-DDTHH:MM:SSZ"
 
-summary: "Concise outcome."
+summary: "Concise outcome; no conversational filler."
 completed_items: []
 changed_files: []
 commands_proposed: []
@@ -14,12 +14,19 @@ commands_confirmed_run: []
 verification:
   - criterion_id: AC-001
     result: passed # passed | failed | not_run | inconclusive
-    evidence: "Actual output, test result, or file inspection"
+    evidence: "Actual output, test result, commit/diff reference, or file inspection"
 decisions:
-  - decision: "Decision made within scope"
+  - decision: "Routine decision made within approved scope"
     rationale: "Short reason"
     requires_manager_review: false
 unresolved_items: []
 risks: []
 recommended_next_action: "Next step or none"
 handoff_required: false
+
+reporting_rules:
+  - "Report only actions actually performed; distinguish proposed commands from executed commands."
+  - "A test is passed only when its actual result is available and supports the criterion."
+  - "Static inspection, syntax compilation, unit tests, and integration tests are distinct evidence types."
+  - "If execution was unavailable, use blocked or partial and name the exact capability gap."
+  - "Do not include long process narration or end-user conversation."
