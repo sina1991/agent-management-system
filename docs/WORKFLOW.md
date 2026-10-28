@@ -1,40 +1,43 @@
 # Operational Workflow
 
-## New task
+## Role activation
+1. The user starts Alpha and provides project goals and constraints.
+2. Alpha inspects available project artifacts and prepares the architecture and execution plan.
+3. The user approves or requests changes to the plan.
+4. Alpha sends Manager a complete approved mission and explicit scope/acceptance criteria.
+5. Manager and Technical are started in independent chats using their role profiles and a task-specific handoff.
+6. The user manually relays messages between chats; the named recipient of each message does not change.
 
-1. Alpha approves the goal, boundaries, dependencies, and acceptance criteria.
-2. Manager checks the Graph and Information Index.
-3. Manager creates a Task Contract and a task-specific context package.
-4. Technical Agent inspects the current state and proceeds with the task.
-5. User runs requested commands and returns actual output.
-6. Technical Agent verifies each step and provides an Execution Report.
-7. Manager reviews the report, updates state/index, and reports to Alpha.
+## Approved-plan execution
+1. Manager verifies the approval reference and reads the Project Graph, Information Index, and relevant task state.
+2. Manager breaks the plan into scoped tasks with unique IDs, dependencies, acceptance criteria, and evidence requirements.
+3. Manager may start tasks within the approved plan without per-task reapproval.
+4. Manager may change technical details and ordering inside the approved scope, but cannot change global architecture, scope, Unit ownership, or acceptance criteria.
+5. Manager sends a task assignment to Technical.
+6. Technical performs `AUDIT -> APPLY -> VERIFY`, then sends an evidence-based report to Manager.
+7. Manager reviews the report, requests correction if needed, updates/proposes reusable state, and reports progress or decisions needed to Alpha.
+8. Alpha handles decisions outside Manager's authority and provides user-facing status.
 
-## Avoiding repeated context collection
+## Communication boundaries
+- Alpha communicates with the human user and Manager.
+- Manager communicates with Alpha and assigned Technical Agents only. It must not ask the human for instructions or report directly to them.
+- Technical reports to Manager. It may communicate with the human only for limited operational troubleshooting, such as obtaining actual terminal output.
+- Unit Agent definitions and ownership remain with Alpha. Manager cannot create, remove, or redefine Unit Agent ownership.
 
-Before requesting project information, the Manager checks:
-- whether a suitable artifact already exists;
-- whether its source, scope, and observed revision are known;
-- whether the relevant files have changed since collection;
-- whether the artifact actually covers this task.
-
-When information is missing, the Manager groups independent inspection commands into one collection batch where practical. A second batch is justified only by a newly discovered dependency, a contradiction, or an important unknown.
-
-## Agent replacement
-
-If an Agent cannot continue:
-1. Stop new unrelated work.
-2. Produce a Handoff Contract using verified facts and clearly labeled assumptions.
-3. Identify the latest reliable checkpoint and any unverified changes.
-4. The Manager checks the handoff against repository state and existing reports.
-5. A replacement Agent receives the handoff plus only the context needed to continue.
+## Avoid repeated context collection
+Before requesting information, check whether a valid artifact already exists, whether its source/revision is known, whether the relevant files have changed, and whether the artifact covers the current task. Group independent inspection commands into one focused collection batch when practical.
 
 ## Terminal command conventions
+- Begin each project terminal command step with `clear`, unless required diagnostic output must first be preserved.
+- Use targeted `sed -i` edits only when exact current content is known.
+- Use `cat > /path/to/file <<'EOF'` for full-file replacement only when appropriate.
+- Inspect exact sections of large/sensitive files, including `web/app.py`, before editing.
+- Use `grep`, `sed -n`, or equivalent inspection before targeted edits when content is uncertain.
+- Keep each terminal step focused on one objective.
+- Follow `AUDIT -> APPLY -> VERIFY`; report actual command output and tests, not assumptions.
 
-- Begin project terminal command sequences with `clear`.
-- Keep each terminal step focused on one clear objective.
-- Inspect exact content before targeted edits, especially for large or sensitive files such as `web/app.py`.
-- Use `grep`, `sed -n`, or equivalent inspection commands when current content is uncertain.
-- Prefer targeted edits for small changes and full-file replacement only when appropriate.
-- Use `AUDIT → APPLY → VERIFY`.
-- Commands and technical identifiers remain in English; explanations and reports are in Persian.
+## Blockers and handoffs
+- Technical sends execution blockers to Manager.
+- Manager sends decisions outside its authority to Alpha via `DECISION_REQUEST`.
+- Alpha consults the user when project-level input or approval is needed.
+- Record verified facts, assumptions, last verified checkpoint, remaining work, and next action in handoff records.
