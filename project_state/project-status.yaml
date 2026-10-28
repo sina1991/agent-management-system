@@ -3,9 +3,9 @@ project:
   name: agent-management-system
   repository: https://github.com/sina1991/agent-management-system
   visibility_target: public
-  phase: architecture_and_scaffold
-  status: scaffold_generated_not_yet_published
-  last_updated: "YYYY-MM-DD"
+  phase: role_bootstrap_and_operational_protocol
+  status: published_scaffold_under_review
+  last_updated: "2026-10-28"
 architecture_decisions:
   - id: ADR-001
     decision: "Initial implementation is file-based and Git-versioned."
@@ -16,9 +16,11 @@ architecture_decisions:
   - id: ADR-003
     decision: "Human runs terminal commands in the initial workflow."
     status: accepted
+  - id: ADR-004
+    decision: "Three independent chats use the repository as a shared reference; chat history is not shared automatically."
+    status: accepted
 next_steps:
-  - "Review generated scaffold"
-  - "Create the public GitHub repository"
-  - "Initialize Git and push after review"
-blockers:
-  - "Repository publication has not been performed by this scaffold generator"
+  - "Review and validate the three-chat startup and role activation protocol."
+  - "Complete the first end-to-end mission handoff across Alpha, Manager, and Technical Agent."
+  - "Add validation/tests for operational contracts and role protocol."
+blockers: []
