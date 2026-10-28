@@ -1,0 +1,75 @@
+schema_version: "1.0"
+contract_type: task
+task_id: "ALPHA-TEST-002"
+title: "Verify two-path agent repair cycle"
+status: in_progress
+owner_agent: manager
+issued_by: alpha
+created_at: "2026-10-28T00:00:00Z"
+
+objective: "Verify coordination and evidence across GitHub-based and user-run terminal-based repair paths."
+scope:
+  included:
+    - "Inspect and test tests/agent_cycle_test_1.py and tests/agent_cycle_test_2.py on branch alpha-test-002."
+    - "Delegate file 1 repair through GitHub to Technical Agent 1."
+    - "Delegate file 2 repair through terminal commands executed by the user for Technical Agent 2."
+    - "Collect individual reports and submit a consolidated report to Alpha."
+  excluded:
+    - "Any modification to main."
+    - "Architecture, ADR, project-status, or unrelated file changes."
+    - "Claims of execution without direct evidence."
+
+acceptance_criteria:
+  - id: AC-001
+    description: "Task Contract and both intentionally faulty files exist only on alpha-test-002."
+    verification: "Inspect branch and compare against main."
+  - id: AC-002
+    description: "Manager records initial inspection and distinguishes actual runs from proposed commands."
+    verification: "Execution report with outputs and environment details."
+  - id: AC-003
+    description: "Two separate technical tasks are specified with different repair paths."
+    verification: "Task assignments or handoff artifacts identify each path and owner."
+  - id: AC-004
+    description: "Both repairs are verified with GitHub diffs/commits and actual test outputs."
+    verification: "Commit links and raw test output are attached to reports."
+  - id: AC-005
+    description: "Manager submits a consolidated report including unresolved issues and risks."
+    verification: "Report follows contracts/execution-report.yaml."
+  - id: AC-006
+    description: "Alpha independently reviews evidence and issues a pass, fail, or inconclusive result."
+    verification: "Final Alpha review cites artifacts and evidence."
+
+dependencies: []
+context:
+  graph_nodes: []
+  information_refs: []
+  files_to_inspect:
+    - "README.md"
+    - "agents/manager/PROFILE.md"
+    - "contracts/task.yaml"
+    - "contracts/execution-report.yaml"
+    - "tests/agent_cycle_test_1.py"
+    - "tests/agent_cycle_test_2.py"
+  collection_batch_ref: null
+
+constraints:
+  language: "Persian prose; technical identifiers remain English"
+  terminal_steps: "One clear objective per step"
+  workflow: "AUDIT -> APPLY -> VERIFY"
+  human_runs_commands: true
+
+risk_level: low
+approval_required_for:
+  - "Architecture changes"
+  - "Out-of-scope changes"
+  - "Any change to main"
+
+expected_outputs:
+  - "Two individual technical execution reports"
+  - "Consolidated Manager execution report"
+  - "Alpha final evidence review"
+
+notes:
+  - "The initial README states agents are not automatically executed in this release."
+  - "Do not claim independent agent execution unless the infrastructure provides verifiable evidence."
+  - "Keep all test changes on alpha-test-002; do not merge."
