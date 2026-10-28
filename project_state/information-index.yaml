@@ -1,15 +1,22 @@
 schema_version: "1.0"
 description: "Lightweight index of reusable project information; do not duplicate source contents here."
-records: []
-# Example record:
-# - id: INFO-001
-#   kind: command_output # file_excerpt | archive | command_output | report | decision
-#   title: "Relevant dependency list"
-#   location: "reports/dependency-audit.txt"
-#   scope:
-#     files: ["pyproject.toml"]
-#     graph_nodes: ["dependency-config"]
-#   source_revision: "git commit SHA or unknown"
-#   observed_at: "YYYY-MM-DDTHH:MM:SSZ"
-#   validity: current # current | stale | unknown
-#   reuse_guidance: "Reuse unless the source file changes."
+records:
+  - id: INFO-AMS-BOOTSTRAP-001
+    kind: decision
+    title: "Three-chat startup and role activation protocol"
+    location: "docs/CHAT_BOOTSTRAP.md"
+    scope:
+      files:
+        - "agents/alpha/PROFILE.md"
+        - "agents/manager/PROFILE.md"
+        - "agents/technical/PROFILE.md"
+        - "docs/WORKFLOW.md"
+      graph_nodes:
+        - "chat-bootstrap-protocol"
+        - "agent-alpha"
+        - "agent-manager"
+        - "technical-agent"
+    source_revision: "feature/chat-bootstrap-and-role-protocol"
+    observed_at: "2026-10-28T16:00:00Z"
+    validity: current
+    reuse_guidance: "Use this protocol when activating the three independent ChatGPT conversations. Recheck if role profiles or bootstrap documentation change."
