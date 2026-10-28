@@ -1,65 +1,58 @@
 # Agent Management System
 
-A file-based, Git-versioned framework for coordinating AI agents across software projects while minimizing repeated context collection and preserving project state across agent handoffs.
+A file-based, Git-versioned framework for coordinating three AI-agent roles across independent conversations while minimizing repeated context collection and preserving project state across handoffs.
 
-> Initial release: architecture and operational contracts. This repository does not execute AI agents automatically.
+> Current status: the public repository and initial scaffold exist. The repository defines the roles and contracts; it does not automatically orchestrate AI agents or share conversation histories.
 
 ## Goals
 
-- Keep project state outside conversation history.
+- Keep canonical project state outside conversation history.
 - Separate global planning (`Agent Alpha`), execution coordination (`Agent Manager`), and implementation (`Technical Agent`).
 - Reuse project information instead of repeatedly asking for the same files or command output.
-- Keep agents extensible through profiles and shared contracts.
-- Preserve work through structured execution reports and handoffs.
+- Preserve work through structured task contracts, execution reports, and handoffs.
 - Keep real-world execution under explicit human control in the initial version.
 
-## Architecture
+## Three roles
 
-```text
-User
- |
- v
-Agent Alpha  <-----------------------+
- |                                   |
- | approved mission                  | status / decisions
- v                                   |
-Agent Manager                        |
- |                                   |
- | task contract                     |
- v                                   |
-Technical Agent                      |
- |                                   |
- | focused inspection / commands     |
- v                                   |
-User runs commands in real terminal  |
- |                                   |
- | actual output                     |
- v                                   |
-Technical Agent                      |
- | execution report / handoff        |
- v                                   |
-Agent Manager -----------------------+
-```
+- **Agent Alpha:** communicates with the user, plans and approves architecture and milestones, delegates approved missions to Manager, reviews progress, and owns global project status.
+- **Agent Manager:** receives approved missions from Alpha, prepares task-specific context, directs Technical Agent, checks evidence, maintains reusable records, and reports to Alpha.
+- **Technical Agent:** accepts tasks from Manager, inspects and changes the project within scope, verifies results, and returns an Execution Report or Handoff to Manager.
 
-## Repository map
+## Three-chat workflow
 
-- `docs/`: architecture and workflow documentation.
-- `contracts/`: shared YAML contract templates and their JSON Schemas.
-- `agents/`: role profiles and responsibilities.
-- `project_state/`: templates for project status, graph, and information index.
-- `tasks/`: task record templates.
-- `reports/`: execution report templates.
-- `handoffs/`: handoff templates.
-- `scripts/`: small validation and repository-audit utilities.
-- `tests/`: tests for included utility scripts.
+See [docs/CHAT_BOOTSTRAP.md](docs/CHAT_BOOTSTRAP.md) for the required startup protocol and [docs/WORKFLOW.md](docs/WORKFLOW.md) for the operating workflow.
 
-## Quick start
+1. In the first chat, ask the Agent to inspect this repository. It must summarize the verified components briefly and ask you to confirm activation as Alpha.
+2. In the second chat, explicitly activate Manager and pass it Alpha's approved mission.
+3. In the third chat, explicitly activate Technical Agent and pass it Manager's Task Contract and focused context package.
+4. Transfer concise mission/report messages between chats. The chats do not automatically see one another's history.
+5. Treat GitHub as the shared file reference, not as proof that all chats can access it. Each chat must verify actual access.
+6. In the initial version, the user runs terminal commands and returns the real output.
 
-Requirements: Python 3.10+ and Git. The core repository uses only Python's standard library. Optional YAML validation requires `PyYAML`.
+## Architecture and state
+
+- `agents/`: role profiles.
+- `contracts/`: YAML templates and JSON Schemas for tasks, execution reports, and handoffs.
+- `project_state/`: current project status, Project Graph, and Project Information Index.
+- `docs/`: architecture, bootstrap, repository layout, and workflow.
+- `tasks/`, `reports/`, `handoffs/`: locations for persistent work records.
+- `scripts/`, `tests/`: repository audit, YAML validation, and scaffold tests.
+
+## Operating principles
+
+1. **AUDIT -> APPLY -> VERIFY**: inspect current state before edits, make a focused change, then verify it.
+2. **Reuse before recollecting**: check the Information Index and existing artifacts before asking for more context.
+3. **Collect in batches**: group independent inspection commands into one focused collection step when practical.
+4. **Read narrowly**: only task-relevant content should enter the model context.
+5. **Evidence over claims**: an agent's claim alone does not verify completion.
+6. **Human-controlled execution**: the user runs commands and returns actual output in the initial version.
+7. **Secrets stay private**: never commit credentials, private keys, API tokens, or private server data.
+
+## Local validation
+
+Requirements: Python 3.10+ and Git. YAML validation requires `PyYAML`.
 
 ```bash
-git clone https://github.com/sina1991/agent-management-system.git
-cd agent-management-system
 python3 -m venv .venv
 . .venv/bin/activate
 python -m pip install -r requirements-dev.txt
@@ -67,38 +60,8 @@ python scripts/validate_yaml.py
 python -m unittest discover -s tests -v
 ```
 
-On Windows, activate the virtual environment with `.venv\Scripts\activate`.
+## Repository
 
-The validation script reports a clear message if `PyYAML` is not installed. To install the optional dependency directly:
+Public repository: https://github.com/sina1991/agent-management-system
 
-```bash
-python -m pip install PyYAML
-```
-
-## Operating principles
-
-1. **AUDIT → APPLY → VERIFY**: inspect current state before edits, make a focused change, then verify it.
-2. **Reuse before recollecting**: check the Information Index and existing artifacts before asking for more context.
-3. **Collect in batches**: group independent inspection commands into one focused collection step when practical.
-4. **Read narrowly**: an archive may contain many files, but only task-relevant content should enter an agent's context.
-5. **Evidence over claims**: a task is not considered verified merely because an agent says it is complete.
-6. **Human-controlled execution**: in this initial version, the user runs terminal commands and returns their actual output.
-7. **Minimal rules, manager-led correction**: the Technical Agent should progress the task naturally; the Manager corrects repeated requests, excessive context, or out-of-scope behavior.
-8. **Secrets stay private**: never commit API keys, passwords, private server data, or `.env` files.
-
-## GitHub publication
-
-Suggested public repository URL: `https://github.com/sina1991/agent-management-system`
-
-This archive does not create or publish the GitHub repository. Create the empty repository on GitHub first, then add it as the remote and push the reviewed files:
-
-```bash
-git init
-git add .
-git commit -m "Initial architecture and agent contracts"
-git branch -M main
-git remote add origin https://github.com/sina1991/agent-management-system.git
-git push -u origin main
-```
-
-If the repository already exists and contains commits, inspect its state before pushing; do not blindly overwrite remote history.
+Changes should be reviewed, validated, and committed through the normal Git workflow. Do not force-push or overwrite remote history without an explicit reason and review.
