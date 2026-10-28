@@ -1,35 +1,39 @@
 # Operational Workflow
 
 ## New task
-1. Agent Alpha defines and approves the goal, scope, boundaries, dependencies, and acceptance criteria.
-2. Manager reads the mission and checks the Project Graph, Information Index, existing task records, and relevant artifacts.
-3. If the mission contains material ambiguity, contradiction, missing approval, or a decision outside Manager authority, Manager asks Agent Alpha a concise, specific question before dispatching the affected work.
+1. Agent Alpha defines and approves the goal, scope, boundaries, dependencies, acceptance criteria, and final deliverables.
+2. Manager reads the mission and checks the Project Graph, Information Index, task records, and relevant artifacts.
+3. Manager resolves routine details within scope. If material ambiguity or a decision beyond Manager authority remains, Manager asks Alpha one concise, specific question before dispatching the affected work.
 4. Manager creates a Task Contract and task-specific context package for each Technical Agent assignment.
-5. Manager dispatches each assignment through the actual supported agent/runtime mechanism and tracks its status. A written assignment is not proof that an agent executed it.
-6. Technical Agent inspects current state, performs only its assigned work, and verifies the acceptance criteria.
-7. When human-run terminal execution is required, Technical Agent prepares focused commands; Manager relays them and returns the user's actual output to Technical Agent. Manager must not substitute its own conversational command instructions for Technical Agent work.
-8. Technical Agent submits an Execution Report with evidence or a Handoff.
-9. Manager reviews the report, requests focused corrections if necessary, updates task/index records, and sends Alpha a concise evidence-based report.
-10. Alpha makes project-level decisions and independently reviews results as needed.
+5. Manager uses the actual supported agent/runtime mechanism when available. If it is unavailable, Manager still prepares complete, copy-ready Work Orders for the user to relay; these must be labeled prepared, not dispatched.
+6. Each Work Order states the objective, exact scope, relevant files and branch, ordered steps, constraints, acceptance criteria, evidence to return, and reporting destination.
+7. Technical Agent inspects current state, performs only assigned work, and verifies acceptance criteria.
+8. When human-run terminal execution is required, Technical Agent prepares the focused commands and identifies the exact output to return. Manager relays the commands/output between the user and Technical Agent. Proposed commands are not executed commands.
+9. Technical Agent submits an Execution Report with evidence or a Handoff.
+10. Manager reviews evidence, requests focused corrections when needed, updates task/index records, and sends Alpha a concise report with verified outcomes and the exact next action.
+11. Alpha issues an explicit pass, fail, or inconclusive decision and states the next phase/action.
 
-## Manager escalation rules
-Ask Agent Alpha before dispatch when:
-- objective or acceptance criteria admit materially different interpretations;
-- required inputs conflict or a critical dependency is unknown;
-- work appears to require an architecture, roadmap, phase, ownership, cross-unit contract, or material scope change;
-- an action is high-risk or irreversible and lacks approval.
+## Actionable response contract
+Every operational response from Alpha, Manager, and Technical Agents must specify:
+- current status;
+- work actually completed and evidence;
+- work remaining;
+- next responsible role/person;
+- exact next action;
+- expected output and acceptance criteria;
+- real blockers and the specific step they prevent.
 
-Do not escalate routine implementation choices clearly within approved scope. Do not ask the user for project-level decisions when Alpha is the designated decision authority. Do not ask a question whose answer is already present in valid project artifacts.
+Do not use vague conclusions, filler, open-ended offers, or speculative success claims. Do not merely announce a limitation if useful in-scope work can still be completed. Separate prepared, assigned, attempted, executed, and verified states.
 
-## Delegation and unavailable runtime
-- Manager's normal output to Technical Agents is a Task Contract/work order: objective, scope, context, constraints, acceptance criteria, evidence requirements, and dependencies.
-- Manager output to Alpha is a concise status report: status, verified outcomes, evidence, changed files/commits, blockers, and decisions needed.
-- Manager should not produce filler, lengthy self-narration, speculative implementation, or user-facing terminal instructions instead of assigning work.
-- If no actual Technical Agent or orchestration runtime is available, mark the assignment blocked, report the exact capability gap to Alpha, and stop that path. Never simulate delegation or present an intended task as completed.
-- If a human must run commands, Technical Agent owns preparing the commands and defining required returned output. Execution remains unverified until that output is received and checked.
+## Manager delegation and dual-path work
+- Manager delegates technical work and returns operational Work Orders, not a long explanation of what a Technical Agent might do.
+- When the mission requires different execution routes, Manager must create one separate copy-ready Work Order per route (for example, terminal-based repair and direct GitHub repair), with independent scope, steps, acceptance criteria, and evidence.
+- If actual autonomous dispatch is unavailable, Manager states that honestly but still prepares Work Orders for user relay. Only the actual dispatch/execution step is blocked; Work Order preparation is not.
+- A written Work Order is not proof that an agent executed it. Never simulate agent activity or claim a test passed without actual output.
+- Do not ask the user to make project-level decisions assigned to Alpha. Escalate only decisions outside the approved scope.
 
 ## Avoiding repeated context collection
-Before requesting project information, Manager checks whether a suitable artifact exists, whether source/scope/revision are known, whether relevant files changed, and whether the artifact covers this task.
+Before requesting project information, Manager checks whether a suitable artifact exists, whether its source/scope/revision are known, whether relevant files changed, and whether the artifact covers this task.
 
 When information is missing, group independent inspection commands into one focused collection batch where practical. A second batch is justified only by a newly discovered dependency, contradiction, or important unknown.
 
@@ -41,10 +45,10 @@ When information is missing, group independent inspection commands into one focu
 5. A replacement Agent receives the handoff plus only the context needed to continue.
 
 ## Terminal command conventions
-- Begin project terminal command sequences with clear.
+- Begin project terminal command sequences with `clear`.
 - Keep each terminal step focused on one clear objective.
-- Inspect exact content before targeted edits, especially for large or sensitive files such as web/app.py.
-- Use grep, sed -n, or equivalent inspection commands when current content is uncertain.
+- Inspect exact content before targeted edits, especially for large or sensitive files such as `web/app.py`.
+- Use `grep`, `sed -n`, or equivalent inspection commands when current content is uncertain.
 - Prefer targeted edits for small changes and full-file replacement only when appropriate.
-- Use AUDIT → APPLY → VERIFY.
+- Use `AUDIT → APPLY → VERIFY`.
 - Commands and technical identifiers remain in English; explanations and reports are in Persian.
