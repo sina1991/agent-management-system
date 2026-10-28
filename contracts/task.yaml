@@ -1,10 +1,15 @@
 schema_version: "1.0"
 contract_type: task
+message_id: "MSG-YYYYMMDD-001"
+project_id: "PROJECT-ID"
 task_id: "TASK-YYYYMMDD-001"
+parent_task_id: null
 title: "Short task title"
-status: ready # draft | ready | in_progress | blocked | review | completed | cancelled
+status: ready # draft | ready | approved | in_progress | blocked | verifying | completed | cancelled
 owner_agent: technical
 issued_by: manager
+recipient: technical
+approval_ref: "APPROVAL-ID"
 created_at: "YYYY-MM-DDTHH:MM:SSZ"
 
 objective: "One clear, verifiable objective."
@@ -30,16 +35,16 @@ constraints:
   language: "Persian prose; technical identifiers remain English"
   terminal_steps: "One clear objective per step"
   workflow: "AUDIT -> APPLY -> VERIFY"
-  human_runs_commands: true
+  human_runs_commands_if_no_direct_access: true
 
 risk_level: low # low | medium | high
 approval_required_for:
   - "Architecture changes"
   - "Out-of-scope changes"
-  - "High-risk or irreversible actions"
+  - "High-risk or irreversible actions not explicitly covered by approval"
 
 expected_outputs:
-  - "Execution report"
+  - "Execution report addressed to Manager"
   - "Changed files or copy-ready commands"
 
 notes: []

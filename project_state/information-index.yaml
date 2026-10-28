@@ -1,15 +1,28 @@
 schema_version: "1.0"
 description: "Lightweight index of reusable project information; do not duplicate source contents here."
-records: []
-# Example record:
-# - id: INFO-001
-#   kind: command_output # file_excerpt | archive | command_output | report | decision
-#   title: "Relevant dependency list"
-#   location: "reports/dependency-audit.txt"
-#   scope:
-#     files: ["pyproject.toml"]
-#     graph_nodes: ["dependency-config"]
-#   source_revision: "git commit SHA or unknown"
-#   observed_at: "YYYY-MM-DDTHH:MM:SSZ"
-#   validity: current # current | stale | unknown
-#   reuse_guidance: "Reuse unless the source file changes."
+records:
+  - id: INFO-AMS-ARCH-001
+    kind: decision
+    title: "Canonical architecture and operating protocol"
+    location: "docs/FINAL_ARCHITECTURE.fa.md"
+    scope:
+      files:
+        - "docs/CHAT_BOOTSTRAP.md"
+        - "docs/WORKFLOW.md"
+        - "agents/alpha/PROFILE.md"
+        - "agents/manager/PROFILE.md"
+        - "agents/technical/PROFILE.md"
+        - "contracts/task.yaml"
+        - "contracts/execution-report.yaml"
+        - "contracts/schemas/task.schema.json"
+        - "contracts/schemas/execution-report.schema.json"
+      graph_nodes:
+        - "final-architecture"
+        - "chat-bootstrap-protocol"
+        - "agent-alpha"
+        - "agent-manager"
+        - "technical-agent"
+    source_revision: "7b7393a8b339173a5c4f7fdbdc7b6d7d6c80edf4"
+    observed_at: "2026-10-28T19:47:25Z"
+    validity: current
+    reuse_guidance: "Use the canonical architecture and synchronized role profiles/contracts for role boundaries, approved-plan autonomy, communication, terminal execution, and evidence requirements. Recheck after changes to these files."

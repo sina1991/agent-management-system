@@ -1,6 +1,12 @@
 schema_version: "1.0"
 graph:
   nodes:
+    - id: final-architecture
+      type: documentation
+      path: docs/FINAL_ARCHITECTURE.fa.md
+    - id: chat-bootstrap-protocol
+      type: documentation
+      path: docs/CHAT_BOOTSTRAP.md
     - id: agent-alpha
       type: agent
       path: agents/alpha/PROFILE.md
@@ -19,22 +25,43 @@ graph:
     - id: handoff-contract
       type: contract
       path: contracts/handoff.yaml
+    - id: project-status
+      type: state
+      path: project_state/project-status.yaml
     - id: project-information-index
       type: state
       path: project_state/information-index.yaml
   edges:
+    - from: final-architecture
+      to: agent-alpha
+      relationship: defines_role_and_authority
+    - from: final-architecture
+      to: agent-manager
+      relationship: defines_role_and_authority
+    - from: final-architecture
+      to: technical-agent
+      relationship: defines_terminal_and_verification_rules
+    - from: chat-bootstrap-protocol
+      to: agent-alpha
+      relationship: defines_startup
+    - from: chat-bootstrap-protocol
+      to: agent-manager
+      relationship: defines_startup
+    - from: chat-bootstrap-protocol
+      to: technical-agent
+      relationship: defines_startup
     - from: agent-alpha
       to: agent-manager
-      relationship: issues_approved_mission
+      relationship: issues_approved_plan_and_decisions
     - from: agent-manager
       to: technical-agent
-      relationship: assigns_task
+      relationship: assigns_scoped_tasks
     - from: technical-agent
       to: execution-report-contract
       relationship: reports_using
     - from: technical-agent
       to: handoff-contract
       relationship: hands_off_using
-    - from: agent-manager
-      to: project-information-index
-      relationship: maintains
+    - from: agent-alpha
+      to: project-status
+      relationship: owns_global_status

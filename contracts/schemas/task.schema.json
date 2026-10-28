@@ -2,86 +2,38 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Task Contract",
   "type": "object",
-  "required": [
-    "schema_version",
-    "contract_type",
-    "task_id",
-    "title",
-    "status",
-    "owner_agent",
-    "issued_by",
-    "objective",
-    "acceptance_criteria"
-  ],
+  "required": ["schema_version", "contract_type", "message_id", "project_id", "task_id", "title", "status", "owner_agent", "issued_by", "recipient", "objective", "acceptance_criteria"],
   "properties": {
-    "schema_version": {
-      "const": "1.0"
-    },
-    "contract_type": {
-      "const": "task"
-    },
-    "task_id": {
-      "type": "string",
-      "minLength": 1
-    },
-    "title": {
-      "type": "string",
-      "minLength": 1
-    },
-    "status": {
-      "enum": [
-        "draft",
-        "ready",
-        "in_progress",
-        "blocked",
-        "review",
-        "completed",
-        "cancelled"
-      ]
-    },
-    "owner_agent": {
-      "type": "string",
-      "minLength": 1
-    },
-    "issued_by": {
-      "type": "string",
-      "minLength": 1
-    },
-    "objective": {
-      "type": "string",
-      "minLength": 1
-    },
+    "schema_version": {"const": "1.0"},
+    "contract_type": {"const": "task"},
+    "message_id": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "parent_task_id": {"type": ["string", "null"]},
+    "title": {"type": "string", "minLength": 1},
+    "status": {"enum": ["draft", "ready", "approved", "in_progress", "blocked", "verifying", "completed", "cancelled"]},
+    "owner_agent": {"type": "string", "minLength": 1},
+    "issued_by": {"type": "string", "minLength": 1},
+    "recipient": {"type": "string", "minLength": 1},
+    "approval_ref": {"type": ["string", "null"]},
+    "objective": {"type": "string", "minLength": 1},
     "acceptance_criteria": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "id",
-          "description"
-        ],
+        "required": ["id", "description", "verification"],
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "verification": {
-            "type": "string"
-          }
+          "id": {"type": "string", "minLength": 1},
+          "description": {"type": "string", "minLength": 1},
+          "verification": {"type": "string", "minLength": 1}
         },
         "additionalProperties": false
       }
     },
-    "scope": {
-      "type": "object"
-    },
-    "context": {
-      "type": "object"
-    },
-    "constraints": {
-      "type": "object"
-    }
+    "scope": {"type": "object"},
+    "context": {"type": "object"},
+    "constraints": {"type": "object"},
+    "risk_level": {"enum": ["low", "medium", "high"]}
   },
   "additionalProperties": true
 }

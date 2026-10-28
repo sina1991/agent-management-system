@@ -2,73 +2,33 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Execution Report",
   "type": "object",
-  "required": [
-    "schema_version",
-    "contract_type",
-    "report_id",
-    "task_id",
-    "agent_id",
-    "status",
-    "summary",
-    "verification"
-  ],
+  "required": ["schema_version", "contract_type", "message_id", "report_id", "project_id", "task_id", "agent_id", "recipient", "status", "summary", "verification"],
   "properties": {
-    "schema_version": {
-      "const": "1.0"
-    },
-    "contract_type": {
-      "const": "execution_report"
-    },
-    "report_id": {
-      "type": "string"
-    },
-    "task_id": {
-      "type": "string"
-    },
-    "agent_id": {
-      "type": "string"
-    },
-    "status": {
-      "enum": [
-        "completed",
-        "partial",
-        "blocked",
-        "failed"
-      ]
-    },
-    "summary": {
-      "type": "string"
-    },
+    "schema_version": {"const": "1.0"},
+    "contract_type": {"const": "execution_report"},
+    "message_id": {"type": "string", "minLength": 1},
+    "report_id": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "parent_task_id": {"type": ["string", "null"]},
+    "agent_id": {"type": "string", "minLength": 1},
+    "recipient": {"const": "manager"},
+    "status": {"enum": ["completed", "partial", "blocked", "failed"]},
+    "summary": {"type": "string", "minLength": 1},
     "verification": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "criterion_id",
-          "result"
-        ],
+        "required": ["criterion_id", "result", "evidence"],
         "properties": {
-          "criterion_id": {
-            "type": "string"
-          },
-          "result": {
-            "enum": [
-              "passed",
-              "failed",
-              "not_run",
-              "inconclusive"
-            ]
-          },
-          "evidence": {
-            "type": "string"
-          }
+          "criterion_id": {"type": "string", "minLength": 1},
+          "result": {"enum": ["passed", "failed", "not_run", "inconclusive"]},
+          "evidence": {"type": "string"}
         },
         "additionalProperties": false
       }
     },
-    "handoff_required": {
-      "type": "boolean"
-    }
+    "handoff_required": {"type": "boolean"}
   },
   "additionalProperties": true
 }

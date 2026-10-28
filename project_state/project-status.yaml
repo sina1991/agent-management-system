@@ -3,22 +3,34 @@ project:
   name: agent-management-system
   repository: https://github.com/sina1991/agent-management-system
   visibility_target: public
-  phase: architecture_and_scaffold
-  status: scaffold_generated_not_yet_published
-  last_updated: "YYYY-MM-DD"
+  phase: architecture_contract_alignment
+  status: published_scaffold_under_review
+  last_updated: "2026-10-28"
 architecture_decisions:
   - id: ADR-001
     decision: "Initial implementation is file-based and Git-versioned."
     status: accepted
   - id: ADR-002
-    decision: "YAML is the human-editable shared contract format."
+    decision: "YAML is the human-editable shared contract format; JSON Schema validates supported contracts."
     status: accepted
   - id: ADR-003
-    decision: "Human runs terminal commands in the initial workflow."
+    decision: "Human runs terminal commands when direct execution access is unavailable."
+    status: accepted
+  - id: ADR-004
+    decision: "Three independent chats use the repository as a shared reference; chat history is not shared automatically."
+    status: accepted
+  - id: ADR-005
+    decision: "Alpha owns global architecture and Unit Agent definitions; Manager coordinates approved work and cannot communicate directly with the human user."
+    status: accepted
+  - id: ADR-006
+    decision: "Alpha may approve a complete plan in one go; Manager may execute and adjust technical details only within that approved scope."
+    status: accepted
+  - id: ADR-007
+    decision: "Technical follows AUDIT -> APPLY -> VERIFY and the terminal command rules in the canonical architecture."
     status: accepted
 next_steps:
-  - "Review generated scaffold"
-  - "Create the public GitHub repository"
-  - "Initialize Git and push after review"
+  - "Run Python unit tests and YAML/JSON contract validation in a real runtime."
+  - "Review this Pull Request and decide whether to merge it into main."
+  - "Complete an end-to-end sample handoff through Alpha, Manager, and Technical."
 blockers:
-  - "Repository publication has not been performed by this scaffold generator"
+  - "Automated tests have not yet been executed in a Python runtime for this branch."
