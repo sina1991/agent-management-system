@@ -28,13 +28,15 @@ context:
 
 constraints:
   language: "Persian prose; technical identifiers remain English"
-  terminal_steps: "One clear objective per step"
+  terminal_steps: "One clear objective per step; begin command sequence with clear"
   workflow: "AUDIT -> APPLY -> VERIFY"
   human_runs_commands: true
   authority: "Execute only approved scope; do not change architecture, roadmap, ownership boundaries, shared contracts, or material scope."
-  ambiguity: "Stop and ask Agent Manager; Manager escalates material ambiguity to Agent Alpha before dispatch or decision."
+  ambiguity: "Inspect artifacts first; ask Agent Manager for technical ambiguity; Manager escalates material project decisions to Agent Alpha."
   evidence: "Separate proposed commands from commands actually run; never claim unobserved execution or unverified success."
-  delegation: "Technical work is performed by the assigned Technical Agent; Manager must not substitute user-facing instructions for delegation."
+  delegation: "Technical work is performed by the assigned Technical Agent; Manager must not substitute conversational instructions for a Work Order."
+  response: "State status, verified work, remaining work, next responsible actor, exact next action, expected output, and genuine blockers."
+  alternate_paths: "When required by the mission, produce separate copy-ready Work Orders for each execution path."
 
 risk_level: low # low | medium | high
 approval_required_for:
@@ -47,6 +49,7 @@ expected_outputs:
   - "Execution report with evidence for every acceptance criterion"
   - "Changed files and diff/commit references, or clear statement that no changes were made"
   - "Commands actually run separated from commands merely proposed"
-  - "Unresolved items, risks, and next action"
+  - "Copy-ready Work Orders for each required execution path"
+  - "Unresolved items, risks, and exact next action"
 
 notes: []
