@@ -1,6 +1,9 @@
 schema_version: "1.0"
 graph:
   nodes:
+    - id: chat-bootstrap-protocol
+      type: documentation
+      path: docs/CHAT_BOOTSTRAP.md
     - id: agent-alpha
       type: agent
       path: agents/alpha/PROFILE.md
@@ -19,10 +22,22 @@ graph:
     - id: handoff-contract
       type: contract
       path: contracts/handoff.yaml
+    - id: project-status
+      type: state
+      path: project_state/project-status.yaml
     - id: project-information-index
       type: state
       path: project_state/information-index.yaml
   edges:
+    - from: chat-bootstrap-protocol
+      to: agent-alpha
+      relationship: activates_with_confirmation
+    - from: chat-bootstrap-protocol
+      to: agent-manager
+      relationship: defines_startup
+    - from: chat-bootstrap-protocol
+      to: technical-agent
+      relationship: defines_startup
     - from: agent-alpha
       to: agent-manager
       relationship: issues_approved_mission
@@ -38,3 +53,6 @@ graph:
     - from: agent-manager
       to: project-information-index
       relationship: maintains
+    - from: agent-alpha
+      to: project-status
+      relationship: owns_global_status
